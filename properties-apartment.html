@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Luxury Apartment | VOID</title>
+    
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios/50/country-house.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --white: #FFFFFF;
+            --c1: #FFFBF4;
+            --c2: #D8CFBC;
+            --c3: #565449;
+            --c4: #11120D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins, sans-serif;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--c4);
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: var(--c4);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--c4);
+            position: relative;
+        }
+
+        .back-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 1px;
+            background: var(--c4);
+            transition: .4s;
+        }
+
+        .back-link:hover::after {
+            width: 100%;
+        }
+
+        /* HERO */
+
+        .hero {
+            height: 65vh;
+            background: url("images/property2a.png") center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 10%;
+        }
+
+        .hero-box {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 35px;
+            max-width: 500px;
+            animation: heroReveal 1s ease;
+        }
+
+        .price {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        @keyframes heroReveal {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SECTION */
+
+        .section {
+            padding: 110px 10%;
+        }
+
+        .line {
+            height: 1px;
+            background: var(--c4);
+            margin: 20px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+        }
+
+        /* SPECS */
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .spec-tile {
+            border-top: 1px solid var(--c4);
+            padding-top: 15px;
+            transition: .4s;
+        }
+
+        .spec-tile:hover {
+            transform: translateY(-4px);
+        }
+
+        /* GALLERY */
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: 1s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* CTA */
+
+        .cta {
+            background: var(--c2);
+            text-align: center;
+            padding: 100px 10%;
+        }
+
+        .cta-btn {
+            border: 1px solid var(--c4);
+            padding: 12px 30px;
+            text-decoration: none;
+            color: var(--c4);
+            display: inline-block;
+            margin-top: 20px;
+            transition: .4s;
+        }
+
+        .cta-btn:hover {
+            background: var(--c4);
+            color: white;
+        }
+
+        /* ANIMATION */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        @media(max-width:768px) {
+
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">VOID</a>
+        <a href="properties.html" class="back-link">Back</a>
+    </nav>
+
+    <section class="hero">
+
+        <div class="hero-box">
+            <h1>Luxury Apartment</h1>
+            <p>3 BHK • Gurgaon</p>
+            <div class="price">₹2.2 Cr</div>
+        </div>
+
+    </section>
+
+    <section class="section">
+
+        <div class="grid">
+
+            <div class="reveal">
+
+                <h2>Overview</h2>
+                <div class="line"></div>
+
+                <p>
+                    Luxury apartment located in Gurgaon’s premium residential district with modern interiors, security,
+                    and amenities.
+                </p>
+
+            </div>
+
+            <div class="reveal">
+
+                <h2>Specifications</h2>
+                <div class="line"></div>
+
+                <div class="spec-grid">
+
+                    <div class="spec-tile">Property Type: Apartment</div>
+                    <div class="spec-tile">Bedrooms: 3 BHK</div>
+                    <div class="spec-tile">Location: Gurgaon</div>
+                    <div class="spec-tile">Area: 1850 sq.ft</div>
+                    <div class="spec-tile">Parking: Yes</div>
+                    <div class="spec-tile">Status: Available</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="section reveal">
+
+        <h2>Gallery</h2>
+        <div class="line"></div>
+
+        <div class="gallery">
+
+            <img src="images/property2a.png">
+            <!-- <img src="images/property2b.png">
+            <img src="images/property2c.png"> -->
+
+        </div>
+
+    </section>
+
+    <section class="cta reveal">
+
+        <h2>Interested in this property?</h2>
+
+        <div class="line"></div>
+
+        <a href="contact.html" class="cta-btn">Contact VOID</a>
+
+    </section>
+
+    <footer>
+        © 2026 VOID | Real Estate
+    </footer>
+
+    <script>
+
+        const reveals = document.querySelectorAll(".reveal");
+
+        function animate() {
+
+            reveals.forEach(el => {
+
+                const rect = el.getBoundingClientRect();
+
+                if (rect.top < window.innerHeight - 80)
+                    el.classList.add("visible");
+                else
+                    el.classList.remove("visible");
+
+            });
+        }
+
+        window.addEventListener("scroll", animate);
+        animate();
+
+    </script>
+
+</body>
+
+</html>

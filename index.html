@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VOID Real Estate</title>
+
+    <link rel="icon" type="image/png" sizes="32x32"
+href="https://img.icons8.com/external-basicons-solid-edtgraphics/64/external-Spiral-abstract-basicons-solid-edtgraphics.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --white: #FFFFFF;
+            --c1: #FFFBF4;
+            --c2: #D8CFBC;
+            --c3: #565449;
+            --c4: #11120D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: white;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: var(--c4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--c4);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--c4);
+            transition: 0.4s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* HAMBURGER */
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--c4);
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* HERO */
+
+        .hero {
+            height: 100vh;
+            background: url("images/background.png") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 48px;
+            letter-spacing: 8px;
+            font-weight: 300;
+        }
+
+        /* SECTION */
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 10%;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: 1s;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            max-width: 1200px;
+        }
+
+        .reverse .section-content {
+            flex-direction: row-reverse;
+        }
+
+        /* SLIDER */
+
+        /* SLIDER CONTAINER */
+        .slider {
+            position: relative;
+            overflow: hidden;
+            width: 500px;
+            height: 350px;
+        }
+
+        /* SLIDES TRACK */
+        .slides {
+            display: flex;
+            transition: transform 1.2s cubic-bezier(.77, 0, .18, 1);
+            width: 100%;
+            height: 100%;
+        }
+
+        /* EACH IMAGE */
+        .slides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex: 0 0 100%;
+            /* THIS FIXES THE ISSUE */
+            display: block;
+        }
+
+        /* ARROWS */
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .left {
+            left: 10px;
+        }
+
+        .right {
+            right: 10px;
+        }
+
+        /* TEXT */
+
+        .text h2 {
+            font-size: 28px;
+        }
+
+        .line {
+            height: 1px;
+            background: black;
+            margin: 15px 0;
+        }
+
+        .btn {
+            border: 1px solid black;
+            padding: 10px 20px;
+            background: transparent;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: black;
+            color: white;
+        }
+
+        /* COLORS */
+
+        .s1 {
+            background: rgba(255, 251, 244, 0.85);
+        }
+
+        .s2 {
+            background: rgba(216, 207, 188, 0.85);
+        }
+
+        .s3 {
+            background: rgba(86, 84, 73, 0.85);
+            color: white;
+        }
+
+        .s3 .line {
+            background: white;
+        }
+
+        .s3 .btn {
+            border-color: white;
+            color: white;
+        }
+
+        .s3 .btn:hover {
+            background: white;
+            color: black;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        /* MOBILE */
+
+        @media(max-width:900px) {
+
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .section-content {
+                flex-direction: column;
+            }
+
+            .slider {
+                width: 100%;
+            }
+
+            .slides img {
+                width: 100%;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 100px 40px;
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">VOID</a>
+
+        <div class="nav-links">
+            <a class="active" href="index.html">Home</a>
+            <a href="properties.html">Properties</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </nav>
+
+    <section class="hero">
+        <h1>VOID REAL ESTATE</h1>
+    </section>
+
+    <!-- SECTION 1 -->
+
+    <section class="section s1">
+
+        <div class="section-content">
+
+            <div class="slider">
+
+                <div class="slides">
+                    <img src="images/property1a.png">
+                    <img src="images/property1b.png">
+                    <img src="images/property1c.png">
+                </div>
+
+                <button class="arrow left">&#8592;</button>
+                <button class="arrow right">&#8594;</button>
+
+            </div>
+
+            <div class="text">
+                <h2>Independent Houses</h2>
+                <div class="line"></div>
+                <p>Exclusive independent houses in prime Delhi NCR locations designed for privacy and luxury.</p>
+                <button class="btn" onclick="location.href = 'properties.html'">Know More</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SECTION 2 -->
+
+    <section class="section s2 reverse">
+
+        <div class="section-content">
+
+            <div class="slider">
+
+                <div class="slides">
+                    <img src="images/property2a.png">
+                    <img src="images/property2b.png">
+                    <!-- <img src="images/property2c.png"> -->
+                </div>
+
+                <button class="arrow left">&#8592;</button>
+                <button class="arrow right">&#8594;</button>
+
+            </div>
+
+            <div class="text">
+                <h2>Flats & Apartments</h2>
+                <div class="line"></div>
+                <p>Modern apartments with premium amenities in prime urban locations.</p>
+                <button class="btn" onclick="location.href = 'properties.html'">Know More</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SECTION 3 -->
+
+    <section class="section s3">
+
+        <div class="section-content">
+
+            <div class="slider">
+
+                <div class="slides">
+                    <img src="images/property3a.png">
+                    <img src="images/property3b.png">
+                    <!-- <img src="images/property3c.png"> -->
+                </div>
+
+                <button class="arrow left">&#8592;</button>
+                <button class="arrow right">&#8594;</button>
+
+            </div>
+
+            <div class="text">
+                <h2>Premium Penthouses</h2>
+                <div class="line"></div>
+                <p>Exclusive penthouses with skyline views and world class amenities. </p>
+                <button class="btn" onclick="location.href = 'properties.html'">Know More</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+        © 2026 VOID | Real Estate
+    </footer>
+
+    <script>
+
+        /* HAMBURGER */
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.onclick = () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        };
+
+        /* SCROLL */
+
+        const sections = document.querySelectorAll(".section");
+
+        window.addEventListener("scroll", () => {
+            sections.forEach(sec => {
+                const rect = sec.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    sec.classList.add("visible");
+                } else {
+                    sec.classList.remove("visible");
+                }
+            });
+        });
+
+        /* SLIDER LOGIC */
+
+        document.querySelectorAll(".slider").forEach(slider => {
+
+            const slides = slider.querySelector(".slides");
+            const total = slides.children.length;
+
+            let index = 0;
+
+            function update() {
+                slides.style.transform = `translateX(-${index * 100}%)`;
+            }
+
+            slider.querySelector(".right").onclick = () => {
+                index = (index + 1) % total;
+                update();
+            };
+
+            slider.querySelector(".left").onclick = () => {
+                index = (index - 1 + total) % total;
+                update();
+            };
+
+            setInterval(() => {
+                index = (index + 1) % total;
+                update();
+            }, 6000); // slower auto slide
+
+        });
+
+    </script>
+
+</body>
+
+</html>

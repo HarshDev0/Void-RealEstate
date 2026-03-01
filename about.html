@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About | VOID Real Estate</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/windows/32/about.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================
+ROOT COLORS
+========================= */
+
+        :root {
+            --white: #FFFFFF;
+            --c1: #FFFBF4;
+            --c2: #D8CFBC;
+            --c3: #565449;
+            --c4: #11120D;
+        }
+
+        /* =========================
+GLOBAL FIX (CRITICAL)
+========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--c4);
+        }
+
+        /* =========================
+NAVBAR
+========================= */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: var(--c4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--c4);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--c4);
+            transition: 0.4s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* =========================
+HAMBURGER
+========================= */
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--c4);
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* =========================
+SECTIONS
+========================= */
+
+        .section {
+            padding: 120px 10%;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .alt {
+            background: var(--c1);
+        }
+
+        .alt2 {
+            background: var(--c2);
+        }
+
+        .line {
+            height: 1px;
+            background: var(--c4);
+            margin: 20px 0;
+        }
+
+        /* =========================
+SCROLL ANIMATION
+========================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s cubic-bezier(.77, 0, .18, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+GRID FIX
+========================= */
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            width: 100%;
+        }
+
+        /* =========================
+CARDS
+========================= */
+
+        .card {
+            border-top: 1px solid var(--c4);
+            padding-top: 20px;
+        }
+
+        /* =========================
+COUNTERS
+========================= */
+
+        .stat {
+            font-size: 42px;
+            font-weight: 500;
+        }
+
+        /* =========================
+PARALLAX FIX
+========================= */
+
+        .parallax {
+            height: 420px;
+            width: 100%;
+            background: url("images/architecture.jpg") center/cover no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .parallax::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(17, 18, 13, 0.25);
+        }
+
+        /* =========================
+TIMELINE FIX
+========================= */
+
+        .timeline {
+            position: relative;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            width: 1px;
+            height: 100%;
+            background: var(--c4);
+        }
+
+        .timeline-item {
+            width: 50%;
+            padding: 20px 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--c4);
+            position: absolute;
+            top: 28px;
+            right: -6px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -6px;
+        }
+
+        /* =========================
+CTA
+========================= */
+
+        .cta {
+            text-align: center;
+        }
+
+        .cta a {
+            border: 1px solid var(--c4);
+            padding: 12px 30px;
+            text-decoration: none;
+            color: var(--c4);
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .cta a:hover {
+            background: var(--c4);
+            color: white;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* =========================
+MOBILE FIXES (IMPORTANT)
+========================= */
+
+        @media(max-width:768px) {
+
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 120px 40px;
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            /* section padding reduce */
+
+            .section {
+                padding: 90px 20px;
+            }
+
+            /* grids */
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            /* timeline mobile fix */
+
+            .timeline::before {
+                left: 10px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding: 15px 15px 15px 35px;
+            }
+
+            .timeline-dot {
+                left: 4px;
+                right: auto;
+            }
+
+            /* parallax mobile */
+
+            .parallax {
+                background-attachment: scroll;
+                height: 280px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">VOID</a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="properties.html">Properties</a>
+            <a class="active" href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="section alt">
+        <h1 class="reveal">ABOUT VOID</h1>
+        <div class="line reveal"></div>
+        <p class="reveal">
+            VOID is a real estate firm focused on curated luxury homes and investment-grade properties in Delhi NCR.
+        </p>
+    </section>
+
+    <!-- PHILOSOPHY -->
+
+    <section class="section">
+        <div class="grid-2">
+            <div>
+                <h2 class="reveal">Our Philosophy</h2>
+                <div class="line reveal"></div>
+            </div>
+            <div>
+                <p class="reveal">
+                    We believe real estate is more than property — it is space, identity, and long-term value.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="parallax"></section>
+
+    <!-- STATS -->
+
+    <section class="section alt">
+        <div class="grid-3">
+
+            <div class="reveal">
+                <div class="stat counter" data-target="50">0</div>
+                <p>Properties Listed</p>
+            </div>
+
+            <div class="reveal">
+                <div class="stat counter" data-target="120">0</div>
+                <p>Crore Portfolio</p>
+            </div>
+
+            <div class="reveal">
+                <div class="stat counter" data-target="30">0</div>
+                <p>Clients Served</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+
+    <section class="section">
+
+        <h2 class="reveal">Services</h2>
+        <div class="line reveal"></div>
+
+        <div class="grid-3">
+
+            <div class="card reveal">
+                <h3>Property Sales</h3>
+                <p>Residential and commercial property acquisition.</p>
+            </div>
+
+            <div class="card reveal">
+                <h3>Consultation</h3>
+                <p>Investment-focused real estate guidance.</p>
+            </div>
+
+            <div class="card reveal">
+                <h3>Property Curation</h3>
+                <p>Carefully selected premium listings.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- AREAS -->
+
+    <section class="section alt">
+
+        <h2 class="reveal">Areas Covered</h2>
+        <div class="line reveal"></div>
+
+        <div class="grid-3">
+            <div class="reveal">Delhi</div>
+            <div class="reveal">Gurgaon</div>
+            <div class="reveal">Noida</div>
+        </div>
+
+    </section>
+
+    <!-- TIMELINE -->
+
+    <section class="section">
+
+        <h2 class="reveal">Our Journey</h2>
+        <div class="line reveal"></div>
+
+        <div class="timeline">
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <h4>2024</h4>
+                <p>VOID founded in Delhi NCR</p>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <h4>2025</h4>
+                <p>Expanded property listings across NCR</p>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <h4>2026</h4>
+                <p>Reached ₹100Cr+ property portfolio</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CTA -->
+
+    <section class="section alt2 cta">
+        <h2 class="reveal">Looking to buy or sell property?</h2>
+        <div class="line reveal"></div>
+        <a href="contact.html" class="reveal">Contact VOID</a>
+    </section>
+
+    <footer>
+        © 2026 VOID | Real Estate
+    </footer>
+
+    <script>
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.onclick = () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        };
+
+        const reveals = document.querySelectorAll(".reveal");
+
+        function animate() {
+            reveals.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    el.classList.add("visible");
+                } else {
+                    el.classList.remove("visible");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", animate);
+        animate();
+
+        const counters = document.querySelectorAll(".counter");
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let el = entry.target;
+                    let target = +el.dataset.target;
+                    let count = 0;
+                    function update() {
+                        count += target / 60;
+                        if (count < target) {
+                            el.innerText = Math.floor(count);
+                            requestAnimationFrame(update);
+                        } else {
+                            el.innerText = target + "+";
+                        }
+                    }
+                    update();
+                    observer.unobserve(el);
+                }
+            });
+        });
+
+        counters.forEach(counter => observer.observe(counter));
+
+    </script>
+
+</body>
+
+</html>

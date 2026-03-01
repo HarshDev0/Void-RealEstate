@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | VOID Real Estate</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/ios-glyphs/30/business-contact.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================
+ROOT COLORS
+========================= */
+
+        :root {
+            --white: #FFFFFF;
+            --c1: #FFFBF4;
+            --c2: #D8CFBC;
+            --c3: #565449;
+            --c4: #11120D;
+        }
+
+        /* =========================
+GLOBAL
+========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--c4);
+        }
+
+        /* =========================
+NAVBAR
+========================= */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: var(--c4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--c4);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--c4);
+            transition: 0.4s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* =========================
+HAMBURGER
+========================= */
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--c4);
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* =========================
+SECTIONS
+========================= */
+
+        .section {
+            padding: 120px 10%;
+        }
+
+        .hero {
+            background: var(--c1);
+        }
+
+        .line {
+            height: 1px;
+            background: var(--c4);
+            margin: 20px 0;
+        }
+
+        /* =========================
+CONTACT GRID
+========================= */
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-top: 40px;
+        }
+
+        /* =========================
+FORM
+========================= */
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--c3);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--c4);
+            padding: 8px 0;
+            font-size: 15px;
+            background: transparent;
+            outline: none;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        .submit-btn {
+            border: 1px solid var(--c4);
+            background: none;
+            padding: 12px 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--c4);
+            color: white;
+        }
+
+        /* SUCCESS MESSAGE */
+
+        .success-message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: var(--c3);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.4s;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+CONTACT INFO
+========================= */
+
+        .info-block {
+            margin-bottom: 40px;
+        }
+
+        .info-title {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            border: 1px solid var(--c4);
+            padding: 12px 30px;
+            text-decoration: none;
+            color: var(--c4);
+            transition: 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            background: var(--c4);
+            color: white;
+        }
+
+        /* =========================
+SOCIAL ICONS
+========================= */
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--c4);
+            color: var(--c4);
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        
+
+        /* =========================
+ANIMATION
+========================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s cubic-bezier(.77, 0, .18, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+FOOTER
+========================= */
+
+        footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* =========================
+MOBILE
+========================= */
+
+        @media(max-width:768px) {
+
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 120px 40px;
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .section {
+                padding: 100px 20px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">VOID</a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="properties.html">Properties</a>
+            <a href="about.html">About</a>
+            <a class="active">Contact</a>
+        </div>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="section hero">
+
+        <h1 class="reveal">CONTACT VOID</h1>
+
+        <div class="line reveal"></div>
+
+        <p class="reveal">
+            For property inquiries, consultations, or exclusive listings, connect with us.
+        </p>
+
+    </section>
+
+    <!-- CONTACT -->
+
+    <section class="section">
+
+        <div class="contact-grid">
+
+            <!-- FORM -->
+
+            <div class="reveal">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Property Interest</label>
+                    <select>
+                        <option>House</option>
+                        <option>Apartment</option>
+                        <option>Commercial</option>
+                        <option>Investment</option>
+                        <option>Consultation</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea></textarea>
+                </div>
+
+                <button class="submit-btn" id="submitBtn">
+                    Send Inquiry →
+                </button>
+
+                <div class="success-message" id="successMsg">
+                    Message sent successfully.
+                </div>
+
+                <p style="margin-top:15px;color:var(--c3);font-size:14px;">
+                    All inquiries are handled confidentially.
+                </p>
+
+            </div>
+
+            <!-- INFO -->
+
+            <div class="reveal">
+
+                <div class="info-block">
+                    <div class="info-title">Contact</div>
+                    dragocodes@gmail.com<br>
+                    +91 XXXXX XXXXX
+                </div>
+
+                <div class="info-block">
+                    <div class="info-title">Location</div>
+                    Delhi NCR, India
+                </div>
+
+                <div class="info-block">
+                    <div class="info-title">Business Hours</div>
+                    Mon – Sat<br>
+                    10:00 – 18:00
+                </div>
+
+                <div class="info-block">
+                    <div class="info-title">WhatsApp</div>
+                    <a href="#" class="whatsapp-btn">Chat on WhatsApp →</a>
+                </div>
+
+                <div class="info-block">
+
+                    <div class="info-title">Social</div>
+
+                    <div class="social-icons">
+
+                        <a href="https://instagram.com/dragocodes">
+                            <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/instagram-new.png" alt="instagram-new"/>
+                        </a>
+
+                        <a href="#">
+                            <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/facebook-new.png" alt="facebook-new"/>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+        © 2026 VOID | Real Estate
+    </footer>
+
+    <script>
+
+        /* hamburger */
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.onclick = () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        };
+
+        /* scroll animation */
+
+        const reveals = document.querySelectorAll(".reveal");
+
+        function animate() {
+            reveals.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    el.classList.add("visible");
+                } else {
+                    el.classList.remove("visible");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", animate);
+        animate();
+
+        /* success message */
+
+        document.getElementById("submitBtn").onclick = () => {
+            const msg = document.getElementById("successMsg");
+            msg.classList.add("show");
+            setTimeout(() => {
+                msg.classList.remove("show");
+            }, 3000);
+        };
+
+    </script>
+
+</body>
+
+</html>
