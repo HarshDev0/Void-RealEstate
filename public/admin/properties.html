@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Properties</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            background: black;
+            color: white;
+            cursor: pointer;
+        }
+
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Properties</h1>
+
+    <a href="/admin/add-property.html">+ Add Property</a>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableBody"></tbody>
+
+    </table>
+
+
+    <script>
+
+        async function loadProperties() {
+
+            const res = await fetch("/api/properties")
+            const properties = await res.json()
+
+            const table = document.getElementById("tableBody")
+
+            table.innerHTML = ""
+
+            properties.forEach(p => {
+
+                table.innerHTML += `
+<tr>
+
+<td>${p.id}</td>
+<td>${p.title}</td>
+<td>${p.price}</td>
+<td>${p.category}</td>
+
+<td>
+
+<button onclick="editProperty(${p.id})">Edit</button>
+<button onclick="deleteProperty(${p.id})">Delete</button>
+
+</td>
+
+</tr>
+`
+
+            })
+
+        }
+
+        async function deleteProperty(id) {
+
+            if (!confirm("Delete this property?")) return
+
+            await fetch("/api/properties/" + id, {
+                method: "DELETE"
+            })
+
+            loadProperties()
+
+        }
+
+        loadProperties()
+
+
+        function editProperty(id) {
+
+            const title = prompt("New title")
+            const price = prompt("New price")
+            const category = prompt("New category")
+            const description = prompt("New description")
+
+            fetch("/api/properties/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title,
+                    price,
+                    category,
+                    description
+                })
+            })
+                .then(() => loadProperties())
+
+        }
+
+    </script>
+
+</body>
+
+</html>

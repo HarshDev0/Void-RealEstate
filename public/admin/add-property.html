@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Property</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Add Property</h1>
+
+    <form id="propertyForm">
+
+        <input type="text" id="title" placeholder="Property Title" required>
+
+        <input type="text" id="price" placeholder="Price" required>
+
+        <input type="text" id="category" placeholder="Category (house/apartment/penthouse)" required>
+
+        <input type="file" id="image" required>
+
+        <textarea id="description" placeholder="Description"></textarea>
+
+        <button type="submit">Add Property</button>
+
+    </form>
+
+    <script>
+
+        document.getElementById("propertyForm").addEventListener("submit", async (e) => {
+
+            e.preventDefault()
+
+            const formData = new FormData()
+
+            formData.append("title", document.getElementById("title").value)
+            formData.append("price", document.getElementById("price").value)
+            formData.append("category", document.getElementById("category").value)
+            formData.append("description", document.getElementById("description").value)
+
+            // image file
+            formData.append("image", document.getElementById("image").files[0])
+
+            const res = await fetch("/api/properties", {
+                method: "POST",
+                body: formData
+            })
+
+            const data = await res.json()
+
+            alert("Property Added! ID: " + data.id)
+
+            document.getElementById("propertyForm").reset()
+
+        })
+
+    </script>
+
+</body>
+
+</html>

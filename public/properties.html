@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Properties | VOID Real Estate</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios/50/country-house.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================
+ROOT COLORS
+========================= */
+
+        :root {
+            --white: #FFFFFF;
+            --c1: #FFFBF4;
+            --c2: #D8CFBC;
+            --c3: #565449;
+            --c4: #11120D;
+        }
+
+        /* =========================
+GLOBAL
+========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--c4);
+        }
+
+        /* =========================
+NAVBAR
+========================= */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: var(--c4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--c4);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--c4);
+            transition: 0.4s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+
+        /* =========================
+HAMBURGER MENU
+========================= */
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--c4);
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* MOBILE NAV */
+
+        @media(max-width:768px) {
+
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 120px 40px;
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                padding: 18px 20px;
+            }
+
+        }
+
+        /* =========================
+HERO
+========================= */
+
+        .hero {
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 10% 0;
+            background: var(--c1);
+        }
+
+        .hero-line {
+            height: 1px;
+            background: var(--c4);
+            margin: 20px 0;
+        }
+
+        /* =========================
+FLOATING FILTER BAR
+========================= */
+
+        .filter-section {
+            padding: 50px 10%;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            border-top: 1px solid rgba(0, 0, 0, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+            padding: 30px 0;
+        }
+
+        /* FILTER GROUP */
+
+        .filter-group {
+            position: relative;
+            min-width: 180px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            color: var(--c3);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* SELECT BUTTON */
+
+        .select-btn {
+            border: none;
+            border-bottom: 1px solid var(--c4);
+            background: none;
+            font-size: 15px;
+            padding: 8px 0;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .arrow {
+            transition: 0.3s;
+        }
+
+        .filter-group.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* FLOATING MENU */
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            min-width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            transition: 0.25s;
+            z-index: 100;
+        }
+
+        .filter-group.open .dropdown {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown div {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .dropdown div:hover {
+            background: var(--c1);
+        }
+
+        /* SEARCH BUTTON */
+
+        .search-btn {
+            border: 1px solid var(--c4);
+            background: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .search-btn:hover {
+            background: var(--c4);
+            color: white;
+        }
+
+        /* =========================
+CARDS
+========================= */
+
+        .properties {
+            padding: 50px 10% 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-img {
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 1s;
+        }
+
+        .card:hover img {
+            transform: scale(1.08);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-line {
+            height: 1px;
+            background: var(--c4);
+            margin: 12px 0;
+        }
+
+        .card-btn {
+            display: inline-block;
+            margin-top: 15px;
+            border: 1px solid var(--c4);
+            padding: 8px 20px;
+            text-decoration: none;
+            color: var(--c4);
+        }
+
+        .card-btn:hover {
+            background: var(--c4);
+            color: white;
+        }
+
+
+        /* =========================
+FILTERED CARD LAYOUT — SAFE FIX
+========================= */
+
+        /* keep container as grid always */
+
+        /* change only card layout */
+        .properties.filtered .card {
+
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            align-items: center;
+
+        }
+
+        /* square image */
+        .properties.filtered .card-img {
+
+            width: 260px;
+            height: 260px;
+
+        }
+
+        /* spacing */
+        .properties.filtered .card-content {
+
+            padding: 25px 30px;
+
+        }
+
+        /* mobile */
+        @media(max-width:768px) {
+
+            .properties.filtered .card {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .properties.filtered .card-img {
+
+                width: 100%;
+                height: 240px;
+
+            }
+
+        }
+
+        /* =========================
+CTA
+========================= */
+
+        .cta {
+            padding: 100px 10%;
+            background: var(--c2);
+            text-align: center;
+        }
+
+        .cta a {
+            border: 1px solid var(--c4);
+            padding: 12px 30px;
+            text-decoration: none;
+            color: var(--c4);
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .cta a:hover {
+            background: var(--c4);
+            color: white;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">VOID</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a class="active" href="properties.html">Properties</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h1>PROPERTIES</h1>
+            <div class="hero-line"></div>
+            <p>Explore curated houses, apartments, and exclusive penthouses.</p>
+        </div>
+    </section>
+
+    <section class="filter-section">
+
+        <div class="filter-bar">
+
+            <div class="filter-group" data-filter="type">
+                <span class="filter-label">Property Type</span>
+                <button class="select-btn">All <span class="arrow">⌄</span></button>
+                <div class="dropdown">
+                    <div data-value="all">All</div>
+                    <div data-value="house">House</div>
+                    <div data-value="apartment">Apartment</div>
+                    <div data-value="penthouse">Penthouse</div>
+                </div>
+            </div>
+
+            <div class="filter-group" data-filter="location">
+                <span class="filter-label">Location</span>
+                <button class="select-btn">All <span class="arrow">⌄</span></button>
+                <div class="dropdown">
+                    <div data-value="all">All</div>
+                    <div data-value="delhi">Delhi</div>
+                    <div data-value="gurgaon">Gurgaon</div>
+                    <div data-value="noida">Noida</div>
+                </div>
+            </div>
+
+            <div class="filter-group" data-filter="bhk">
+                <span class="filter-label">BHK</span>
+                <button class="select-btn">All <span class="arrow">⌄</span></button>
+                <div class="dropdown">
+                    <div data-value="all">All</div>
+                    <div data-value="1">1 BHK</div>
+                    <div data-value="2">2 BHK</div>
+                    <div data-value="3">3 BHK</div>
+                    <div data-value="4">4 BHK</div>
+                </div>
+            </div>
+
+            <button class="search-btn" id="searchBtn">⌕ Search</button>
+
+        </div>
+
+    </section>
+
+    <!-- <section class="properties">
+
+        <div class="card" data-type="house" data-location="delhi" data-bhk="4">
+            <div class="card-img"><img src="images/property1a.png"></div>
+            <div class="card-content">
+                <h3>Independent House</h3>
+                <div class="card-line"></div>
+                <p>4 BHK • Delhi</p>
+                <div class="card-price">₹4.8 Cr</div>
+                <a href="properties-house.html" class="card-btn">Know More</a>
+            </div>
+        </div>
+
+        <div class="card" data-type="apartment" data-location="gurgaon" data-bhk="3">
+            <div class="card-img"><img src="images/property2a.png"></div>
+            <div class="card-content">
+                <h3>Luxury Apartment</h3>
+                <div class="card-line"></div>
+                <p>3 BHK • Gurgaon</p>
+                <div class="card-price">₹2.2 Cr</div>
+                <a href="properties-apartment.html" class="card-btn">Know More</a>
+            </div>
+        </div>
+
+        <div class="card" data-type="penthouse" data-location="noida">
+            <div class="card-img"><img src="images/property3a.png"></div>
+            <div class="card-content">
+                <h3>Luxury Penthouse</h3>
+                <div class="card-line"></div>
+                <p>Noida</p>
+                <div class="card-price">₹3.5 Cr</div>
+                <a href="properties-penthouse.html" class="card-btn">Know More</a>
+            </div>
+        </div>
+
+    </section> -->
+
+    <section class="properties" id="propertiesGrid"></section>
+
+    <section class="cta">
+        <h2>Looking for something exclusive?</h2>
+        <div class="hero-line"></div>
+        <a href="contact.html">Contact VOID</a>
+    </section>
+
+    <footer>© 2026 VOID | Real Estate</footer>
+
+    <script>
+
+        /* FLOATING DROPDOWN */
+
+        const groups = document.querySelectorAll(".filter-group");
+
+        groups.forEach(group => {
+
+            const btn = group.querySelector(".select-btn");
+            const options = group.querySelectorAll(".dropdown div");
+
+            btn.onclick = () => {
+                groups.forEach(g => g !== group && g.classList.remove("open"));
+                group.classList.toggle("open");
+            };
+
+            options.forEach(opt => {
+                opt.onclick = () => {
+                    btn.childNodes[0].nodeValue = opt.innerText + " ";
+                    group.dataset.value = opt.dataset.value;
+                    group.classList.remove("open");
+                };
+            });
+
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".filter-group")) {
+                groups.forEach(g => g.classList.remove("open"));
+            }
+        });
+
+        /* FILTER APPLY ON SEARCH */
+
+        const propertiesGrid = document.querySelector(".properties");
+
+        document.getElementById("searchBtn").onclick = () => {
+
+            const type = document.querySelector('[data-filter="type"]').dataset.value || "all";
+            const location = document.querySelector('[data-filter="location"]').dataset.value || "all";
+            const bhk = document.querySelector('[data-filter="bhk"]').dataset.value || "all";
+
+            let visibleCount = 0;
+
+            document.querySelectorAll(".card").forEach(card => {
+
+                let show = true;
+
+                if (type != "all" && card.dataset.type != type) show = false;
+                if (location != "all" && card.dataset.location != location) show = false;
+                if (bhk != "all" && card.dataset.bhk != bhk) show = false;
+
+                card.classList.toggle("hidden", !show);
+
+                if (show) visibleCount++;
+
+            });
+
+            // apply special layout only when filtering reduces results
+            if (visibleCount <= 2) {
+                propertiesGrid.classList.add("filtered");
+            } else {
+                propertiesGrid.classList.remove("filtered");
+            }
+
+        };
+
+        /* =========================
+HAMBURGER MENU
+========================= */
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        });
+
+
+        /* =========================
+LOAD PROPERTIES FROM API
+========================= */
+
+        async function loadProperties() {
+
+            const res = await fetch("/api/properties");
+            const properties = await res.json();
+
+            const grid = document.getElementById("propertiesGrid");
+
+            grid.innerHTML = "";
+
+            properties.forEach(p => {
+
+                const card = `
+        <div class="card"
+            data-type="${p.category}"
+            data-location="${p.location || ''}"
+            data-bhk="${p.bhk || ''}">
+
+            <div class="card-img">
+                <img src="${p.image}">
+            </div>
+
+            <div class="card-content">
+                <h3>${p.title}</h3>
+                <div class="card-line"></div>
+                <p>${p.description}</p>
+                <div class="card-price">${p.price}</div>
+                <a href="#" class="card-btn">Know More</a>
+            </div>
+
+        </div>
+        `;
+
+                grid.innerHTML += card;
+
+            });
+
+        }
+
+        loadProperties();
+
+    </script>
+
+</body>
+
+</html>
