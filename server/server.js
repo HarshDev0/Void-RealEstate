@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json())
 
-const publicPath = path.join(__dirname, "..", "public");
+const publicPath = path.join(__dirname, "..", "docs");
 
 console.log("Serving static from:", publicPath);
 
@@ -26,7 +26,7 @@ app.listen(5000, () => {
 const storage = multer.diskStorage({
 
 destination: function(req,file,cb){
-cb(null, "public/uploads/")
+cb(null, "docs/uploads/")
 },
 
 filename: function(req,file,cb){
